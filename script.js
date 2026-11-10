@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Substitua pela URL da API do seu Strapi quando estiver no ar
-  const API_URL = 'http://localhost:1337/api/articles?populate=*';
+  const API_URL = 'https://backend-jornal.onrender.com/api/articles?populate=*';
 
   fetch(API_URL)
     .then(res => res.json())
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const imgData = imgField.data ? imgField.data.attributes : imgField;
           if (imgData && imgData.url) {
             // Se estiver em produção, use o domínio do seu Strapi na nuvem
-            const baseUrl = 'http://localhost:1337'; 
+            const baseUrl = 'https://portal-backstage-backend.onrender.com'; 
             imageUrl = imgData.url.startsWith('http') ? imgData.url : `${baseUrl}${imgData.url}`;
           }
         }
