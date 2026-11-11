@@ -59,14 +59,15 @@ body {
   gap: 2rem;
 }
 
-/* Matérias e seus tamanhos customizáveis via CMS */
+/* Matérias e seus tamanhos customizáveis */
 .article-card {
   grid-column: span 12;
   background: var(--color-white);
-  padding: 20px;
+  padding: 25px;
   border-bottom: 2px solid var(--color-light);
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .article-card.span-8 { grid-column: span 8; }
@@ -96,9 +97,10 @@ body {
 }
 
 .article-lead {
-  font-size: 1rem;
-  color: #555;
+  font-size: 1.05rem;
+  color: #444;
   margin-bottom: 15px;
+  font-weight: 400;
 }
 
 .article-image {
@@ -106,7 +108,7 @@ body {
   height: auto;
   max-height: 400px;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .article-caption {
@@ -114,4 +116,9 @@ body {
   color: #777;
   font-style: italic;
   margin-bottom: 15px;
+}
+
+.article-body {
+  font-size: 1rem;
+  color: var(--color-text);
 }
