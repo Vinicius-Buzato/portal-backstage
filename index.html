@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Backstage</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -24,53 +23,8 @@
     <p style="grid-column: span 12; text-align: center;">Carregando edições...</p>
   </main>
 
-  <!-- Script do Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // Cole aqui a sua Project URL do Supabase e a sua Publishable Key nova
-    const SUPABASE_URL = 'https://pvxgfccociadficwmrxg.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_-ibrH7pAPwM8DWggnPml9w_3yAj1J5j';
-    
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      const grid = document.getElementById('news-grid');
-      
-      const { data: articles, error } = await supabaseClient
-        .from('articles')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error("Erro ao buscar notícias:", error);
-        grid.innerHTML = '<p style="grid-column: span 12; text-align: center; color: red;">Erro ao carregar matérias.</p>';
-        return;
-      }
-
-      if (!articles || articles.length === 0) {
-        grid.innerHTML = '<p style="grid-column: span 12; text-align: center;">Nenhuma matéria publicada no momento.</p>';
-        return;
-      }
-
-      grid.innerHTML = '';
-
-      articles.forEach(article => {
-        const card = document.createElement('article');
-        card.className = `article-card ${article.size || 'span-12'}`;
-
-        card.innerHTML = `
-          <span class="article-category">${article.category || 'Geral'}</span>
-          <h2 class="article-title">${article.title}</h2>
-          ${article.lead ? `<p class="article-lead">${article.lead}</p>` : ''}
-          ${article.image_url ? `<img class="article-image" src="${article.image_url}" alt="${article.title}"><div class="article-caption">${article.image_caption || ''}</div>` : ''}
-          <div class="article-body">
-            <p>${article.content}</p>
-          </div>
-        `;
-
-        grid.appendChild(card);
-      });
-    });
-  </script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

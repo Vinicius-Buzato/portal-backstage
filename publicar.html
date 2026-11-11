@@ -4,97 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Publicar Matéria - Portal Backstage</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --color-primary: #5B2A86;   /* Roxo Profundo[cite: 1] */
-      --color-text: #252525;      /* Cinza Grafite[cite: 1] */
-      --color-bg: #F5F3EE;        /* Off-white[cite: 1] */
-      --color-light: #E8E8E8;     /* Cinza Claro[cite: 1] */
-    }
-
-    body {
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      font-family: 'Archivo', sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .form-container {
-      max-width: 700px;
-      margin: 40px auto;
-      background: #FFFFFF;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border-top: 6px solid var(--color-primary);
-    }
-
-    h1 {
-      font-family: 'Archivo Black', sans-serif;
-      color: var(--color-primary);
-      text-transform: uppercase;
-      font-size: 1.8rem;
-      margin-bottom: 25px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--color-light);
-      border-radius: 4px;
-      font-family: 'Archivo', sans-serif;
-      font-size: 1rem;
-      box-sizing: border-box;
-      background-color: #FAFAFA;
-    }
-
-    textarea {
-      resize: vertical;
-      height: 120px;
-    }
-
-    button {
-      background-color: var(--color-primary);
-      color: #FFFFFF;
-      border: none;
-      padding: 14px 24px;
-      font-family: 'Archivo Black', sans-serif;
-      text-transform: uppercase;
-      font-size: 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      width: 100%;
-      transition: opacity 0.2s;
-    }
-
-    button:hover {
-      opacity: 0.9;
-    }
-
-    #status-message {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <div class="form-container">
-    <h1>Nova Matéria - Backstage</h1>
+    <h1 class="form-title">Nova Matéria - Backstage</h1>
     <form id="news-form">
       <div class="form-group">
         <label for="title">Título da Manchete</label>
@@ -136,57 +51,13 @@
         <textarea id="content" required style="height: 200px;" placeholder="Escreva a matéria aqui..."></textarea>
       </div>
 
-      <button type="submit" id="submit-btn">Publicar Matéria no Ar</button>
-      <div id="status-message"></div>
+      <button type="submit" id="submit-btn" class="btn-submit">Publicar Matéria no Ar</button>
+      <div id="status-message" class="form-status"></div>
     </form>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // Cole aqui a sua Project URL do Supabase e a sua Publishable Key nova
-    const SUPABASE_URL = 'https://pvxgfccociadficwmrxg.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_-ibrH7pAPwM8DWggnPml9w_3yAj1J5j';
-    
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    document.getElementById('news-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      const status = document.getElementById('status-message');
-      
-      btn.disabled = true;
-      btn.innerText = 'Publicando...';
-      status.style.color = '#252525';
-      status.innerText = 'Enviando matéria para o portal...';
-
-      const newArticle = {
-        title: document.getElementById('title').value,
-        category: document.getElementById('category').value,
-        size: document.getElementById('size').value,
-        lead: document.getElementById('lead').value,
-        image_url: document.getElementById('image_url').value,
-        image_caption: document.getElementById('image_caption').value,
-        content: document.getElementById('content').value
-      };
-
-      const { data, error } = await supabaseClient
-        .from('articles')
-        .insert([newArticle]);
-
-      if (error) {
-        console.error(error);
-        status.style.color = 'red';
-        status.innerText = 'Erro ao publicar. Verifique se as colunas da tabela batem com o banco.';
-        btn.disabled = false;
-        btn.innerText = 'Publicar Matéria no Ar';
-      } else {
-        status.style.color = '#5B2A86';
-        status.innerText = 'Matéria publicada com sucesso! Redirecionando...';
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1500);
-      }
-    });
-  </script>
+  <script src="config.js"></script>
+  <script src="publicar.js"></script>
 </body>
 </html>
