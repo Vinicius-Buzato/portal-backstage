@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
 
 :root {
   --font-title: 'Archivo Black', sans-serif;
   --font-body: 'Archivo', sans-serif;
 
-  --color-primary: #5B2A86;    /* Roxo Profundo[cite: 1] */
-  --color-text: #252525;       /* Cinza Grafite[cite: 1] */
-  --color-bg: #F5F3EE;         /* Off-white[cite: 1] */
-  --color-light: #E8E8E8;      /* Cinza Claro[cite: 1] */
+  --color-primary: #5B2A86;    /* Roxo Profundo[cite: 14] */
+  --color-text: #252525;       /* Cinza Grafite[cite: 14] */
+  --color-bg: #F5F3EE;         /* Off-white[cite: 14] */
+  --color-light: #E8E8E8;      /* Cinza Claro[cite: 14] */
   --color-white: #FFFFFF;
   --shadow-sm: 0 2px 8px rgba(37, 37, 37, 0.05);
   --shadow-hover: 0 12px 24px rgba(91, 42, 134, 0.12);
@@ -23,7 +23,7 @@ body {
   line-height: 1.6;
 }
 
-/* Cabeçalho Fixo e Fluido */
+/* Cabeçalho e Navegação */
 .portal-header {
   background-color: var(--color-white);
   border-bottom: 4px solid var(--color-primary);
@@ -51,18 +51,18 @@ body {
   transform: scale(1.02);
 }
 
-/* Navegação por Editorias */
 .portal-nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 15px;
   background-color: var(--color-text);
-  padding: 12px 0;
+  padding: 12px 20px;
   color: var(--color-white);
   font-family: var(--font-title);
   font-size: 0.85rem;
   text-transform: uppercase;
-  overflow-x: auto;
+  flex-wrap: wrap;
 }
 
 .nav-link {
@@ -79,7 +79,14 @@ body {
   color: var(--color-white);
 }
 
-/* Layout Principal e Grid G1 */
+/* Botão Dinâmico de Editor na Navbar */
+.editor-btn {
+  background-color: var(--color-primary) !important;
+  color: var(--color-white) !important;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Layout Principal e Grid */
 .portal-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -90,7 +97,7 @@ body {
   min-height: 60vh;
 }
 
-/* Cards de Matérias com Animação Smooth */
+/* Cards de Matérias */
 .article-card {
   grid-column: span 12;
   background: var(--color-white);
@@ -101,12 +108,6 @@ body {
   flex-direction: column;
   transition: var(--transition-smooth);
   border: 1px solid rgba(0,0,0,0.03);
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .article-card:hover {
@@ -155,7 +156,6 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
   margin-bottom: 10px;
-  letter-spacing: 0.5px;
 }
 
 .article-title {
@@ -209,12 +209,12 @@ body {
   transform: translateX(4px);
 }
 
-/* Leitura Individual da Matéria (materia.html) */
+/* Página de Leitura Individual Rica (materia.html) */
 .single-article-container {
   max-width: 800px;
   margin: 40px auto;
   background: var(--color-white);
-  padding: 40px;
+  padding: 50px;
   border-radius: 8px;
   box-shadow: var(--shadow-sm);
 }
@@ -224,10 +224,135 @@ body {
   line-height: 1.8;
   color: var(--color-text);
   margin-top: 30px;
-  white-space: pre-line;
 }
 
-/* Rodapé Institucional */
+/* Regras de Formatação Editoriais Baseadas na Cartilha Backstage */
+.single-article-body h3 {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  margin-top: 40px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.single-article-body p {
+  margin-bottom: 20px;
+}
+
+.single-article-body strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.single-article-body blockquote {
+  margin: 30px 0;
+  padding: 20px 25px;
+  background-color: var(--color-bg);
+  border-left: 5px solid var(--color-primary);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.article-caption {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 8px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Formulários e Autenticação */
+.page-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container, .login-box {
+  width: 100%;
+  max-width: 700px;
+  margin: 40px auto;
+  background: var(--color-white);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  border-top: 6px solid var(--color-primary);
+}
+
+.login-box { max-width: 400px; }
+
+.form-title {
+  font-family: var(--font-title);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-light);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #FAFAFA;
+}
+
+textarea {
+  resize: vertical;
+  height: 180px;
+}
+
+.form-help {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 5px;
+  display: block;
+}
+
+.btn-submit {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 14px;
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition-smooth);
+}
+
+.btn-submit:hover { opacity: 0.9; }
+
+.form-status {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Rodapé */
 .portal-footer {
   background-color: var(--color-text);
   color: var(--color-bg);
@@ -249,7 +374,4 @@ body {
   transition: var(--transition-smooth);
 }
 
-.portal-footer a:hover {
-  opacity: 1;
-  color: var(--color-white);
-}
+.portal-footer a:hover { opacity: 1; color: var(--color-white); }

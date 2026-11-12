@@ -1,9 +1,30 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById('news-grid');
   const navLinks = document.querySelectorAll('.nav-link');
+  const editorNavContainer = document.getElementById('editor-nav-container');
+  const footerAuthLink = document.getElementById('footer-auth-link');
   let allArticles = [];
 
-  // 1. Busca todas as notícias do Supabase
+  // 1. Verifica sessão ativa para exibir atalho de editor na interface
+  async function checkEditorSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      editorNavContainer.innerHTML = `<a href="publicar.html" class="nav-link editor-btn">➕ Publicar Matéria</a>`;
+      footerAuthLink.innerHTML = `
+        <a href="publicar.html">Painel de Publicação</a> | 
+        <a href="#" id="logout-btn" style="color: #ff8080;">Sair da Conta</a>
+      `;
+      
+      document.getElementById('logout-btn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await supabaseClient.auth.signOut();
+        window.location.reload();
+      });
+    }
+  }
+  checkEditorSession();
+
+  // 2. Busca notícias do Supabase
   async function fetchArticles() {
     const { data: articles, error } = await supabaseClient
       .from('articles')
@@ -20,10 +41,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderGrid(allArticles);
   }
 
-  // 2. Renderiza as notícias no grid
+  // 3. Renderiza o grid de notícias
   function renderGrid(articles) {
     if (articles.length === 0) {
-      grid.innerHTML = '<p style="grid-column: span 12; text-align: center; font-size: 1.1rem; color: #777;">Nenhuma matéria encontrada nesta categoria.</p>';
+      grid.innerHTML = '<p style="grid-column: span 12; text-align: center; font-size: 1.1rem; color: #777;">Nenhuma matéria encontrada.</p>';
       return;
     }
 
@@ -55,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // 3. Filtro funcional do Menu por Categoria
+  // 4. Filtro por categoria
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       navLinks.forEach(l => l.classList.remove('active'));

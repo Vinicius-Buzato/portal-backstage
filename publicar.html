@@ -8,8 +8,12 @@
 </head>
 <body>
 
+  <header class="portal-header">
+    <a href="index.html" class="portal-logo">Backstage</a>
+  </header>
+
   <div class="form-container">
-    <h1 class="form-title">Nova Matéria - Backstage</h1>
+    <h1 class="form-title">Nova Matéria</h1>
     <form id="news-form">
       <div class="form-group">
         <label for="title">Título da Manchete</label>
@@ -32,8 +36,8 @@
       </div>
 
       <div class="form-group">
-        <label for="lead">Texto de Apoio (Subtítulo / Lead)</label>
-        <textarea id="lead" placeholder="Resumo curto que fisga o leitor..."></textarea>
+        <label for="lead">Texto de Apoio (Lead / Subtítulo)</label>
+        <textarea id="lead" style="height: 100px;" placeholder="Resumo curto que fisga o leitor..."></textarea>
       </div>
 
       <div class="form-group">
@@ -43,18 +47,29 @@
 
       <div class="form-group">
         <label for="image_caption">Legenda da Imagem e Créditos</label>
-        <input type="text" id="image_caption" placeholder="Foto: Divulgação / Arquivo">
+        <input type="text" id="image_caption" placeholder="Foto: Divulgação / Arquivo Backstage">
       </div>
 
       <div class="form-group">
-        <label for="content">Texto Completo da Matéria</label>
-        <textarea id="content" required style="height: 200px;" placeholder="Escreva a matéria aqui..."></textarea>
+        <label for="content">Texto Completo da Matéria (Com suporte a formatação)</label>
+        <textarea id="content" required placeholder="Escreva o texto aqui..."></textarea>
+        <small class="form-help">
+          <b>Dicas de formatação:</b><br>
+          • Para criar subtópicos: digite <code>&lt;h3&gt;Seu Subtítulo&lt;/h3&gt;</code><br>
+          • Para deixar em negrito: digite <code>&lt;strong&gt;Texto em destaque&lt;/strong&gt;</code><br>
+          • Para citações em bloco: digite <code>&lt;blockquote&gt;Sua citação aqui&lt;/blockquote&gt;</code>
+        </small>
       </div>
 
       <button type="submit" id="submit-btn" class="btn-submit">Publicar Matéria no Ar</button>
       <div id="status-message" class="form-status"></div>
     </form>
   </div>
+
+  <footer class="portal-footer">
+    <p>© 2026 Portal Backstage. Todos os direitos reservados.</p>
+    <a href="index.html">← Voltar para a Capa</a>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
