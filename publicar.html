@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publicar Matéria - Portal Backstage</title>
+  <title id="page-title">Publicar Matéria - Portal Backstage</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <header class="portal-header">
-    <a href="index.html" class="portal-logo">Backstage</a>
+    <a href="index.html">
+      <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none';">
+    </a>
   </header>
 
   <div class="form-container">
-    <h1 class="form-title">Nova Matéria</h1>
+    <h1 class="form-title" id="form-heading">Nova Matéria</h1>
     <form id="news-form">
       <div class="form-group">
         <label for="title">Título da Manchete</label>
@@ -22,7 +24,7 @@
 
       <div class="form-group">
         <label for="category">Editoria / Categoria</label>
-        <input type="text" id="category" required placeholder="Ex: Música, Cultura, São Paulo">
+        <input type="text" id="category" required placeholder="Ex: Cultura, Música, São Paulo">
       </div>
 
       <div class="form-group">
@@ -41,8 +43,9 @@
       </div>
 
       <div class="form-group">
-        <label for="image_url">Link da Imagem Principal</label>
-        <input type="url" id="image_url" placeholder="https://exemplo.com/foto.jpg">
+        <label for="image_file">Upload de Imagem Principal (Máx: 5MB)</label>
+        <input type="file" id="image_file" accept="image/*">
+        <small class="form-help">Formatos aceitos: JPG, PNG, WEBP. Limite de segurança: 5 Megabytes.</small>
       </div>
 
       <div class="form-group">
@@ -51,13 +54,10 @@
       </div>
 
       <div class="form-group">
-        <label for="content">Texto Completo da Matéria (Com suporte a formatação)</label>
+        <label for="content">Texto Completo da Matéria</label>
         <textarea id="content" required placeholder="Escreva o texto aqui..."></textarea>
         <small class="form-help">
-          <b>Dicas de formatação:</b><br>
-          • Para criar subtópicos: digite <code>&lt;h3&gt;Seu Subtítulo&lt;/h3&gt;</code><br>
-          • Para deixar em negrito: digite <code>&lt;strong&gt;Texto em destaque&lt;/strong&gt;</code><br>
-          • Para citações em bloco: digite <code>&lt;blockquote&gt;Sua citação aqui&lt;/blockquote&gt;</code>
+          <b>Dicas de formatação:</b> <code>&lt;h3&gt;Subtítulo&lt;/h3&gt;</code> | <code>&lt;strong&gt;Negrito&lt;/strong&gt;</code> | <code>&lt;blockquote&gt;Citação&lt;/blockquote&gt;</code>
         </small>
       </div>
 

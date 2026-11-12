@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
 
 :root {
   --font-title: 'Archivo Black', sans-serif;
@@ -23,11 +23,11 @@ body {
   line-height: 1.6;
 }
 
-/* Cabeçalho e Navegação */
+/* Cabeçalho e Logo em Imagem */
 .portal-header {
   background-color: var(--color-white);
   border-bottom: 4px solid var(--color-primary);
-  padding: 25px 0 15px 0;
+  padding: 20px 0;
   text-align: center;
   position: sticky;
   top: 0;
@@ -35,22 +35,18 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-.portal-logo {
-  font-family: var(--font-title);
-  font-size: 3.2rem;
-  color: var(--color-primary);
-  text-transform: uppercase;
-  margin: 0;
-  letter-spacing: -1.5px;
-  text-decoration: none;
-  display: inline-block;
+.logo-img {
+  max-height: 55px;
+  width: auto;
   transition: var(--transition-smooth);
+  display: inline-block;
 }
 
-.portal-logo:hover {
+.logo-img:hover {
   transform: scale(1.02);
 }
 
+/* Navegação por Categorias e Atalhos */
 .portal-nav {
   display: flex;
   justify-content: center;
@@ -79,14 +75,13 @@ body {
   color: var(--color-white);
 }
 
-/* Botão Dinâmico de Editor na Navbar */
 .editor-btn {
   background-color: var(--color-primary) !important;
   color: var(--color-white) !important;
   border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* Layout Principal e Grid */
+/* Grid Dinâmico Estilo G1 */
 .portal-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -97,7 +92,6 @@ body {
   min-height: 60vh;
 }
 
-/* Cards de Matérias */
 .article-card {
   grid-column: span 12;
   background: var(--color-white);
@@ -209,7 +203,42 @@ body {
   transform: translateX(4px);
 }
 
-/* Página de Leitura Individual Rica (materia.html) */
+/* Bloco do Autor (Padrão Solicitado) */
+.author-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 30px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-light);
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-primary);
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.author-date {
+  font-size: 0.8rem;
+  color: #666;
+  font-family: var(--font-body);
+}
+
+/* Leitura Individual da Matéria */
 .single-article-container {
   max-width: 800px;
   margin: 40px auto;
@@ -226,7 +255,6 @@ body {
   margin-top: 30px;
 }
 
-/* Regras de Formatação Editoriais Baseadas na Cartilha Backstage */
 .single-article-body h3 {
   font-family: var(--font-title);
   font-size: 1.4rem;
@@ -236,15 +264,8 @@ body {
   text-transform: uppercase;
 }
 
-.single-article-body p {
-  margin-bottom: 20px;
-}
-
-.single-article-body strong {
-  font-weight: 700;
-  color: var(--color-text);
-}
-
+.single-article-body p { margin-bottom: 20px; }
+.single-article-body strong { font-weight: 700; color: var(--color-text); }
 .single-article-body blockquote {
   margin: 30px 0;
   padding: 20px 25px;
@@ -253,7 +274,6 @@ body {
   font-style: italic;
   font-size: 1.2rem;
   color: var(--color-text);
-  font-family: var(--font-body);
 }
 
 .article-caption {
@@ -265,14 +285,20 @@ body {
   text-align: center;
 }
 
-/* Formulários e Autenticação */
-.page-center {
+/* Ações de Admin (Editar/Excluir) */
+.admin-actions {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px dashed var(--color-light);
 }
 
+.btn-edit { background-color: #2b7a78; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-family: var(--font-title); font-size: 0.8rem; }
+.btn-delete { background-color: #c0392b; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; font-family: var(--font-title); font-size: 0.8rem; cursor: pointer; }
+
+/* Formulários e Autenticação */
+.page-center { display: flex; justify-content: center; align-items: center; height: 100vh; }
 .form-container, .login-box {
   width: 100%;
   max-width: 700px;
@@ -283,29 +309,10 @@ body {
   box-shadow: var(--shadow-sm);
   border-top: 6px solid var(--color-primary);
 }
-
 .login-box { max-width: 400px; }
-
-.form-title {
-  font-family: var(--font-title);
-  color: var(--color-primary);
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-}
-
+.form-title { font-family: var(--font-title); color: var(--color-primary); text-transform: uppercase; font-size: 1.5rem; margin-bottom: 20px; text-align: center; }
+.form-group { margin-bottom: 20px; }
+label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.9rem; }
 input, select, textarea {
   width: 100%;
   padding: 12px;
@@ -316,19 +323,8 @@ input, select, textarea {
   box-sizing: border-box;
   background-color: #FAFAFA;
 }
-
-textarea {
-  resize: vertical;
-  height: 180px;
-}
-
-.form-help {
-  font-size: 0.8rem;
-  color: #666;
-  margin-top: 5px;
-  display: block;
-}
-
+textarea { resize: vertical; height: 180px; }
+.form-help { font-size: 0.8rem; color: #666; margin-top: 5px; display: block; }
 .btn-submit {
   background-color: var(--color-primary);
   color: var(--color-white);
@@ -342,15 +338,8 @@ textarea {
   width: 100%;
   transition: var(--transition-smooth);
 }
-
 .btn-submit:hover { opacity: 0.9; }
-
-.form-status {
-  margin-top: 15px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
+.form-status { margin-top: 15px; text-align: center; font-weight: bold; font-size: 0.9rem; }
 
 /* Rodapé */
 .portal-footer {
@@ -361,7 +350,6 @@ textarea {
   text-align: center;
   font-size: 0.85rem;
 }
-
 .portal-footer a {
   color: var(--color-light);
   text-decoration: none;
@@ -373,5 +361,4 @@ textarea {
   opacity: 0.7;
   transition: var(--transition-smooth);
 }
-
 .portal-footer a:hover { opacity: 1; color: var(--color-white); }

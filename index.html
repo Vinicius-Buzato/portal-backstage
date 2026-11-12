@@ -9,18 +9,16 @@
 <body>
 
   <header class="portal-header">
-    <a href="index.html" class="portal-logo">Backstage</a>
+    <a href="index.html">
+      <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+      <h1 id="fallback-logo" style="display:none; color: #5B2A86; font-family: 'Archivo Black';">BACKSTAGE</h1>
+    </a>
   </header>
 
   <nav class="portal-nav" id="category-nav">
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+    <div id="category-buttons-container" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
       <span class="nav-link active" data-category="TODAS">Todas</span>
-      <span class="nav-link" data-category="CULTURA">Cultura</span>
-      <span class="nav-link" data-category="MÚSICA">Música</span>
-      <span class="nav-link" data-category="SÃO PAULO">São Paulo</span>
-      <span class="nav-link" data-category="AGENDA">Agenda</span>
     </div>
-    <!-- Botão dinâmico inserido via script se o editor estiver logado -->
     <div id="editor-nav-container"></div>
   </nav>
 
