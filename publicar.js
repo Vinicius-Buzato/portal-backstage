@@ -3,10 +3,11 @@ let currentAuthorName = 'Redação Backstage';
 let currentAuthorAvatar = 'https://www.gravatar.com/avatar/?d=mp';
 let editMode = false;
 let articleIdToEdit = null;
+let existingImageUrl = '';
 
 async function initPage() {
-  const { data: { session } } = await supabaseClient.auth.getSession();
-  if (!session) {
+  const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+  if (sessionError || !session) {
     window.location.href = 'login.html';
     return;
   }
@@ -15,7 +16,6 @@ async function initPage() {
   currentAuthorName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
   currentAuthorAvatar = session.user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
 
-  // Verifica se a página foi aberta no modo de edição (?edit=ID)
   const urlParams = new URLSearchParams(window.location.search);
   articleIdToEdit = urlParams.get('edit');
 
@@ -24,7 +24,7 @@ async function initPage() {
     document.getElementById('page-title').innerText = 'Editar Matéria - Portal Backstage';
     document.getElementById('form-heading').innerText = 'Editar Matéria';
     document.getElementById('submit-btn').innerText = 'Salvar Alterações';
-    loadArticleData(articleIdToEdit);
+    await loadArticleData(articleIdToEdit);
   }
 }
 
@@ -47,10 +47,12 @@ async function loadArticleData(id) {
   document.getElementById('lead').value = data.lead || '';
   document.getElementById('image_caption').value = data.image_caption || '';
   document.getElementById('content').value = data.content || '';
+  existingImageUrl = data.image_url || '';
 }
 
 document.getElementById('news-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
+  e.preventDefault(); // Impede o recarregamento padrão do formulário
+  
   const btn = document.getElementById('submit-btn');
   const status = document.getElementById('status-message');
   
@@ -59,9 +61,8 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
   status.style.color = '#252525';
   status.innerText = 'Processando dados e imagem...';
 
-  let imageUrl = '';
+  let imageUrl = existingImageUrl;
 
-  // Tratamento do Upload de Imagem com Limite de 5MB
   const fileInput = document.getElementById('image_file');
   if (fileInput.files.length > 0) {
     const file = fileInput.files[0];
@@ -76,7 +77,7 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
     }
 
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Date.now()}_${Math.random().toString(36.substring(2, 9))}.${fileExt}`;
+    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
     const filePath = `news/${fileName}`;
 
     const { error: uploadError } = await supabaseClient.storage
@@ -97,10 +98,6 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
       .getPublicUrl(filePath);
 
     imageUrl = publicURLData.publicUrl;
-  } else if (editMode) {
-    // Se estiver editando e não enviou nova foto, mantém a antiga
-    const { data: oldData } = await supabaseClient.from('articles').select('image_url').eq('id', articleIdToEdit).single();
-    if (oldData) imageUrl = oldData.image_url;
   }
 
   const articleData = {
@@ -125,9 +122,9 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
   }
 
   if (error) {
-    console.error(error);
+    console.error("Erro Supabase:", error);
     status.style.color = 'red';
-    status.innerText = 'Erro ao salvar matéria. Verifique o banco de dados.';
+    status.innerText = 'Erro ao salvar. Verifique o console para detalhes.';
     btn.disabled = false;
     btn.innerText = editMode ? 'Salvar Alterações' : 'Publicar Matéria no Ar';
   } else {

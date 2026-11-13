@@ -24,7 +24,13 @@
 
       <div class="form-group">
         <label for="category">Editoria / Categoria</label>
-        <input type="text" id="category" required placeholder="Ex: Cultura, Música, São Paulo">
+        <select id="category" required>
+          <option value="">Selecione a editoria...</option>
+          <option value="Cultura">Cultura</option>
+          <option value="Música">Música</option>
+          <option value="São Paulo">São Paulo</option>
+          <option value="Agenda">Agenda</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -45,7 +51,7 @@
       <div class="form-group">
         <label for="image_file">Upload de Imagem Principal (Máx: 5MB)</label>
         <input type="file" id="image_file" accept="image/*">
-        <small class="form-help">Formatos aceitos: JPG, PNG, WEBP. Limite de segurança: 5 Megabytes.</small>
+        <small class="form-help">Deixe em branco se já houver imagem e não quiser alterá-la (no modo edição).</small>
       </div>
 
       <div class="form-group">
@@ -57,7 +63,7 @@
         <label for="content">Texto Completo da Matéria</label>
         <textarea id="content" required placeholder="Escreva o texto aqui..."></textarea>
         <small class="form-help">
-          <b>Dicas de formatação:</b> <code>&lt;h3&gt;Subtítulo&lt;/h3&gt;</code> | <code>&lt;strong&gt;Negrito&lt;/strong&gt;</code> | <code>&lt;blockquote&gt;Citação&lt;/blockquote&gt;</code>
+          <b>Dicas:</b> <code>&lt;h3&gt;Subtítulo&lt;/h3&gt;</code> | <code>&lt;strong&gt;Negrito&lt;/strong&gt;</code> | <code>&lt;blockquote&gt;Citação&lt;/blockquote&gt;</code>
         </small>
       </div>
 

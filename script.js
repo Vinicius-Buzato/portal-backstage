@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const grid = document.getElementById('news-grid');
-  const catContainer = document.getElementById('category-buttons-container');
+  const navLinks = document.querySelectorAll('.nav-link');
   const editorNavContainer = document.getElementById('editor-nav-container');
   const footerAuthLink = document.getElementById('footer-auth-link');
   let allArticles = [];
@@ -35,45 +35,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     allArticles = articles || [];
-    buildDynamicCategories(allArticles);
     renderGrid(allArticles);
-  }
-
-  // Gera botões de categoria dinamicamente com base nas matérias cadastradas
-  function buildDynamicCategories(articles) {
-    const categoriesSet = new Set();
-    articles.forEach(item => {
-      if (item.category) categoriesSet.add(item.category.trim().toUpperCase());
-    });
-
-    let html = `<span class="nav-link active" data-category="TODAS">Todas</span>`;
-    categoriesSet.forEach(cat => {
-      html += `<span class="nav-link" data-category="${cat}">${cat}</span>`;
-    });
-    catContainer.innerHTML = html;
-
-    // Reatribui eventos aos novos botões gerados
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        e.target.classList.add('active');
-
-        const category = e.target.getAttribute('data-category');
-        if (category === 'TODAS') {
-          renderGrid(allArticles);
-        } else {
-          const filtered = allArticles.filter(item => 
-            item.category && item.category.trim().toUpperCase() === category
-          );
-          renderGrid(filtered);
-        }
-      });
-    });
   }
 
   function renderGrid(articles) {
     if (articles.length === 0) {
-      grid.innerHTML = '<p style="grid-column: span 12; text-align: center; font-size: 1.1rem; color: #777;">Nenhuma matéria encontrada.</p>';
+      grid.innerHTML = '<p style="grid-column: span 12; text-align: center; font-size: 1.1rem; color: #777;">Nenhuma matéria encontrada nesta categoria.</p>';
       return;
     }
 
@@ -102,6 +69,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       grid.appendChild(card);
     });
   }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      e.target.classList.add('active');
+
+      const category = e.target.getAttribute('data-category');
+      if (category === 'TODAS') {
+        renderGrid(allArticles);
+      } else {
+        const filtered = allArticles.filter(item => 
+          item.category && item.category.trim().toUpperCase() === category
+        );
+        renderGrid(filtered);
+      }
+    });
+  });
 
   fetchArticles();
 });
