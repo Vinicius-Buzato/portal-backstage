@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato - Portal Backstage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="header-left">
+      <a href="index.html">
+        <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+        <span id="fallback-logo" class="fallback-logo" style="display: none;">BACKSTAGE</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="page-center">
+    <div class="form-container" style="max-width: 560px; margin: 0;">
+      <h1 class="form-title">Fale com o Backstage</h1>
+      <p style="text-align: center; color: #555; margin-bottom: 25px; font-size: 0.95rem;">
+        Envie sua mensagem, sugestão de pauta ou proposta comercial diretamente para a nossa redação.
+      </p>
+
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="sender_email">Seu E-mail</label>
+          <input type="email" id="sender_email" name="email" required placeholder="seuemail@exemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Mensagem</label>
+          <textarea id="message" name="message" required placeholder="Escreva sua mensagem aqui..."></textarea>
+        </div>
+
+        <button type="submit" id="contact-btn" class="btn-submit">Enviar Mensagem</button>
+        <div id="contact-status" class="form-status"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    <p>© 2026 Portal Backstage. Todos os direitos reservados.</p>
+    <div class="footer-links">
+      <a href="index.html">← Voltar para a Capa</a>
+      <a href="login.html">Área Restrita (Redação)</a>
+    </div>
+  </footer>
+
+  <script src="contato.js"></script>
+</body>
+</html>

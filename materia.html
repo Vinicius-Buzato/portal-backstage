@@ -9,18 +9,56 @@
 <body>
 
   <header class="portal-header">
-    <a href="index.html">
-      <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none';">
-    </a>
+    <div class="header-left">
+      <a href="index.html">
+        <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+        <span id="fallback-logo" class="fallback-logo" style="display: none;">BACKSTAGE</span>
+      </a>
+    </div>
   </header>
 
-  <main class="single-article-container" id="single-article-content">
-    <p style="text-align: center; font-family: var(--font-title);">Carregando matéria...</p>
-  </main>
+  <div class="article-page-layout">
+    <!-- Coluna Esquerda: Anuncie Aqui -->
+    <aside class="ad-sidebar">
+      <div class="ad-box ad-advertise-here">
+        <span class="ad-label">Publicidade</span>
+        <h4>Anuncie Aqui</h4>
+        <p style="font-size: 0.85rem; color: #444; margin: 10px 0;">
+          Conecte sua marca ao público de cultura, cinema e música do Portal Backstage.
+        </p>
+        <a href="contato.html" class="social-btn" style="font-size: 0.75rem; padding: 9px 12px;">Fale Conosco</a>
+      </div>
+    </aside>
+
+    <!-- Coluna Central: Matéria -->
+    <main class="single-article-container" id="single-article-content">
+      <p style="text-align: center; font-family: var(--font-title);">Carregando matéria...</p>
+    </main>
+
+    <!-- Coluna Direita: Anúncio Fictício -->
+    <aside class="ad-sidebar">
+      <div class="ad-box">
+        <span class="ad-label">Patrocinado</span>
+        <div class="ad-fake-banner">
+          <span style="font-size: 0.7rem; letter-spacing: 1px; opacity: 0.85;">MOSTRA CULTURAL</span>
+          <h4>Festival Som &amp; Tela 2026</h4>
+          <p style="font-size: 0.82rem; margin: 8px 0 14px 0; opacity: 0.92;">
+            Sessões comentadas, trilhas ao vivo e encontros com realizadores.
+          </p>
+          <span style="display: inline-block; background: #fff; color: #5B2A86; padding: 6px 12px; border-radius: 4px; font-family: 'Archivo Black'; font-size: 0.72rem;">
+            VER PROGRAMAÇÃO
+          </span>
+        </div>
+      </div>
+    </aside>
+  </div>
 
   <footer class="portal-footer">
     <p>© 2026 Portal Backstage. Todos os direitos reservados.</p>
-    <a href="index.html">← Voltar para a Capa</a>
+    <div class="footer-links">
+      <a href="index.html">← Voltar para a Capa</a>
+      <a href="contato.html">Contato</a>
+    </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

@@ -9,31 +9,45 @@
 <body>
 
   <header class="portal-header">
-    <a href="index.html">
-      <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
-      <h1 id="fallback-logo" style="display:none; color: #5B2A86; font-family: 'Archivo Black';">BACKSTAGE</h1>
-    </a>
+    <div class="header-left">
+      <a href="index.html">
+        <img src="imgs/logo.png" alt="Portal Backstage" class="logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+        <span id="fallback-logo" class="fallback-logo" style="display: none;">BACKSTAGE</span>
+      </a>
+    </div>
   </header>
 
-  <nav class="portal-nav" id="category-nav">
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-      <span class="nav-link active" data-category="TODAS">Todas</span>
-      <span class="nav-link" data-category="CULTURA">Cultura</span>
-      <span class="nav-link" data-category="MÚSICA">Música</span>
-      <span class="nav-link" data-category="SÃO PAULO">São Paulo</span>
-      <span class="nav-link" data-category="AGENDA">Agenda</span>
+  <nav class="portal-nav" id="main-nav">
+    <div class="nav-group">
+      <button type="button" class="nav-link active" data-view="noticias" data-category="TODAS">Notícias</button>
+
+      <div class="dropdown-wrapper">
+        <button type="button" class="nav-link" id="editoriais-toggle">Editoriais ▾</button>
+        <div class="dropdown-menu" id="editoriais-menu">
+          <span class="dropdown-item" data-category="ARTES">Artes</span>
+          <span class="dropdown-item" data-category="CINEMA">Cinema</span>
+          <span class="dropdown-item" data-category="MÚSICA">Música</span>
+        </div>
+      </div>
+
+      <button type="button" class="nav-link" data-view="equipe">Equipe</button>
+      <button type="button" class="nav-link" data-view="redes">Redes Sociais</button>
     </div>
+
     <div id="editor-nav-container"></div>
   </nav>
 
-  <main class="portal-container" id="news-grid">
+  <main class="portal-container" id="main-content">
     <p style="grid-column: span 12; text-align: center; font-family: var(--font-title);">Carregando edições...</p>
   </main>
 
   <footer class="portal-footer">
     <p>© 2026 Portal Backstage. Todos os direitos reservados.</p>
-    <div id="footer-auth-link">
-      <a href="login.html">Área Restrita (Redação)</a>
+    <div class="footer-links">
+      <a href="contato.html">Contato</a>
+      <span id="footer-auth-link">
+        <a href="login.html">Área Restrita (Redação)</a>
+      </span>
     </div>
   </footer>
 
