@@ -28,10 +28,12 @@ body {
 .portal-header {
   background-color: var(--color-primary);
   border-bottom: 4px solid var(--color-text);
-  padding: 15px 30px;
+  height: 76px;
+  padding: 0 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 24px;
   position: sticky;
   top: 0;
   z-index: 200;
@@ -41,23 +43,33 @@ body {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 15px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.header-left a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
 }
 
 .logo-img {
-  max-height: 48px;
+  height: 100%;
+  max-height: 72px;
   width: auto;
   display: block;
+  object-fit: contain;
   transition: var(--transition-smooth);
 }
 
 .logo-img:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .fallback-logo {
   font-family: var(--font-title);
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: var(--color-white);
   text-transform: uppercase;
   margin: 0;
@@ -67,18 +79,16 @@ body {
 /* Barra de Navegação e Botão Expansivo Editoriais */
 .portal-nav {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  gap: 12px;
-  background-color: var(--color-text);
-  padding: 10px 20px;
+  gap: 10px;
+  background-color: transparent;
+  padding: 0;
   color: var(--color-white);
   font-family: var(--font-title);
   font-size: 0.82rem;
   text-transform: uppercase;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 150;
 }
 
 .nav-group {
@@ -91,7 +101,7 @@ body {
 .nav-link {
   color: var(--color-white);
   text-decoration: none;
-  padding: 7px 15px;
+  padding: 7px 14px;
   border-radius: 20px;
   transition: var(--transition-smooth);
   cursor: pointer;
@@ -106,7 +116,7 @@ body {
 }
 
 .nav-link:hover, .nav-link.active {
-  background-color: var(--color-primary);
+  background-color: var(--color-text);
   color: var(--color-white);
 }
 
@@ -157,19 +167,19 @@ body {
 }
 
 .editor-btn {
-  background-color: var(--color-primary) !important;
+  background-color: var(--color-text) !important;
   color: var(--color-white) !important;
-  border: 1px solid rgba(255,255,255,0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 /* Grid Principal de Notícias */
 .portal-container {
   max-width: 1200px;
-  margin: 35px auto;
+  margin: 16px auto 40px auto;
   padding: 0 20px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 2rem;
+  gap: 1.75rem;
   min-height: 55vh;
 }
 
@@ -430,7 +440,7 @@ body {
 /* Página da Matéria com Anúncios Laterais */
 .article-page-layout {
   max-width: 1440px;
-  margin: 35px auto;
+  margin: 16px auto 40px auto;
   padding: 0 20px;
   display: grid;
   grid-template-columns: 240px minmax(0, 820px) 240px;
@@ -453,7 +463,7 @@ body {
 
 .ad-sidebar {
   position: sticky;
-  top: 125px;
+  top: 96px;
   display: flex;
   flex-direction: column;
   gap: 20px;
