@@ -51,11 +51,11 @@ async function loadArticleData(id) {
 }
 
 document.getElementById('news-form').addEventListener('submit', async (e) => {
-  e.preventDefault(); // Impede o recarregamento padrão do formulário
-  
+  e.preventDefault();
+
   const btn = document.getElementById('submit-btn');
   const status = document.getElementById('status-message');
-  
+
   btn.disabled = true;
   btn.innerText = editMode ? 'Salvando...' : 'Publicando...';
   status.style.color = '#252525';

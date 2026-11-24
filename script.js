@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let allArticles = [];
 
-  // Perfis da equipe
   const teamMembers = [
     {
       name: "Marina Albuquerque",
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   ];
 
-  // Alterna abertura do menu expansivo Editoriais
   editoriaisToggle.addEventListener('click', (e) => {
     e.stopPropagation();
     editoriaisMenu.classList.toggle('open');
@@ -65,22 +63,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
   checkEditorSession();
-
-  async function fetchArticles() {
-    const { data: articles, error } = await supabaseClient
-      .from('articles')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error("Erro ao buscar notícias:", error);
-      mainContent.innerHTML = '<p style="grid-column: span 12; text-align: center; color: red;">Erro ao carregar matérias do servidor.</p>';
-      return;
-    }
-
-    allArticles = articles || [];
-    renderNewsView(allArticles, 'Últimas Notícias');
-  }
 
   function renderNewsView(articles, headingText) {
     let html = `
@@ -175,7 +157,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
   }
 
-  // Eventos dos botões principais da navegação
+  async function fetchArticles() {
+    const { data: articles, error } = await supabaseClient
+      .from('articles')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error("Erro ao buscar notícias:", error);
+      mainContent.innerHTML = '<p style="grid-column: span 12; text-align: center; color: red;">Erro ao carregar matérias do servidor.</p>';
+      return;
+    }
+
+    allArticles = articles || [];
+
+    const params = new URLSearchParams(window.location.search);
+    const initialCategory = params.get('categoria');
+    const initialView = params.get('view');
+
+    if (initialView === 'equipe') {
+      const equipeBtn = document.querySelector('.portal-nav .nav-link[data-view="equipe"]');
+      setActiveNav(equipeBtn);
+      renderTeamView();
+    } else if (initialView === 'redes') {
+      const redesBtn = document.querySelector('.portal-nav .nav-link[data-view="redes"]');
+      setActiveNav(redesBtn);
+      renderSocialView();
+    } else if (initialCategory) {
+      const upperCat = initialCategory.trim().toUpperCase();
+      setActiveNav(editoriaisToggle);
+      const filtered = allArticles.filter(art =>
+        art.category && art.category.trim().toUpperCase() === upperCat
+      );
+      renderNewsView(filtered, `Editorial: ${initialCategory}`);
+    } else {
+      renderNewsView(allArticles, 'Últimas Notícias');
+    }
+  }
+
   navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const view = btn.getAttribute('data-view');
@@ -191,7 +210,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  // Eventos das opções fixas dentro de Editoriais (Artes, Cinema, Música)
   dropdownItems.forEach(item => {
     item.addEventListener('click', (e) => {
       e.stopPropagation();

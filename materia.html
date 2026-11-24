@@ -15,10 +15,30 @@
         <span id="fallback-logo" class="fallback-logo" style="display: none;">BACKSTAGE</span>
       </a>
     </div>
+
+    <nav class="portal-nav" id="main-nav">
+      <div class="nav-group">
+        <a href="index.html" class="nav-link">Notícias</a>
+
+        <div class="dropdown-wrapper">
+          <button type="button" class="nav-link" id="editoriais-toggle">Editoriais ▾</button>
+          <div class="dropdown-menu" id="editoriais-menu">
+            <a href="index.html?categoria=ARTES" class="dropdown-item">Artes</a>
+            <a href="index.html?categoria=CINEMA" class="dropdown-item">Cinema</a>
+            <a href="index.html?categoria=MÚSICA" class="dropdown-item">Música</a>
+          </div>
+        </div>
+
+        <a href="index.html?view=equipe" class="nav-link">Equipe</a>
+        <a href="index.html?view=redes" class="nav-link">Redes Sociais</a>
+      </div>
+
+      <div id="editor-nav-container"></div>
+    </nav>
   </header>
 
   <div class="article-page-layout">
-    <!-- Coluna Esquerda: Anuncie Aqui -->
+    <!-- Lateral Esquerda: Anuncie Aqui -->
     <aside class="ad-sidebar">
       <div class="ad-box ad-advertise-here">
         <span class="ad-label">Publicidade</span>
@@ -35,7 +55,7 @@
       <p style="text-align: center; font-family: var(--font-title);">Carregando matéria...</p>
     </main>
 
-    <!-- Coluna Direita: Anúncio Fictício -->
+    <!-- Lateral Direita: Anúncio Fictício -->
     <aside class="ad-sidebar">
       <div class="ad-box">
         <span class="ad-label">Patrocinado</span>
@@ -63,6 +83,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
+  <script src="nav.js"></script>
   <script src="materia.js"></script>
 </body>
 </html>
