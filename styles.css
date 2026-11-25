@@ -15,6 +15,10 @@
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+html {
+  height: 100%;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
@@ -22,6 +26,9 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Cabeçalho Roxo Único com Logo à Esquerda e Menu na Mesma Faixa */
@@ -174,25 +181,27 @@ body {
 
 /* Grid Principal de Notícias */
 .portal-container {
+  flex: 1 0 auto;
+  width: 100%;
   max-width: 1200px;
-  margin: 14px auto 40px auto;
+  margin: 18px auto 0 auto;
   padding: 0 20px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 2rem;
-  row-gap: 12px;
-  min-height: 55vh;
+  row-gap: 16px;
+  align-content: start;
 }
-
 /* Título e Linha Roxa Padronizados */
 .section-banner {
   grid-column: span 12;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
   border-bottom: 3px solid var(--color-primary);
   padding-top: 0;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   margin-top: 0;
   margin-bottom: 4px;
 }
@@ -203,8 +212,9 @@ body {
   text-transform: uppercase;
   margin: 0;
   padding: 0;
-  line-height: 1;
+  line-height: 1.05;
   font-size: 1.35rem;
+  display: block;
 }
 
 .article-card {
@@ -316,12 +326,20 @@ body {
 }
 
 /* Seção Equipe */
-.team-grid {
+.team-grid,
+.social-grid {
   grid-column: span 12;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
-  margin-top: 8px;
+  margin-top: 4px;
+}
+
+.team-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.social-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .team-card {
@@ -446,10 +464,11 @@ body {
 }
 
 .article-page-layout {
+  flex: 1 0 auto;
   width: 100%;
   max-width: 1480px;
-  margin: 18px auto 48px auto;
-  padding: 0 24px;
+  margin: 18px auto 0 auto;
+  padding: 0 24px 40px 24px;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: minmax(180px, 260px) minmax(0, 860px) minmax(180px, 260px);
@@ -765,10 +784,11 @@ textarea {
 
 /* Rodapé */
 .portal-footer {
+  flex-shrink: 0;
   background-color: var(--color-text);
   color: var(--color-bg);
-  padding: 40px 20px;
-  margin-top: 60px;
+  padding: 36px 20px;
+  margin-top: 48px;
   text-align: center;
   font-size: 0.85rem;
 }
