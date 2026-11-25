@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const minutes = String(dateObj.getMinutes()).padStart(2, '0');
   const formattedDate = `${day}.${month}.${year} às ${hours}:${minutes}`;
 
-  const authorName = article.author_name || 'Redação Backstage';
-  const authorAvatar = article.author_avatar || 'https://www.gravatar.com/avatar/?d=mp';
+  const authorName = article.author_name || 'Editor Backstage';
+  const authorAvatar = article.author_avatar || 'imgs/logo.png';
 
   const { data: { session } } = await supabaseClient.auth.getSession();
   let adminActionsHtml = '';

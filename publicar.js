@@ -1,9 +1,30 @@
 let currentUserId = null;
-let currentAuthorName = 'Redação Backstage';
-let currentAuthorAvatar = 'https://www.gravatar.com/avatar/?d=mp';
+let currentAuthorName = '';
+let currentAuthorAvatar = '';
 let editMode = false;
 let articleIdToEdit = null;
 let existingImageUrl = '';
+
+async function loadAuthorProfile(userId) {
+  const { data: profile, error } = await supabaseClient
+    .from('profiles')
+    .select('full_name, avatar_url')
+    .eq('id', userId)
+    .single();
+
+  if (error || !profile) {
+    console.warn('Perfil não encontrado em profiles, usando fallback:', error);
+    return {
+      full_name: 'Editor Backstage',
+      avatar_url: 'imgs/logo.png'
+    };
+  }
+
+  return {
+    full_name: profile.full_name || 'Editor Backstage',
+    avatar_url: profile.avatar_url || 'imgs/logo.png'
+  };
+}
 
 async function initPage() {
   const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
@@ -13,8 +34,9 @@ async function initPage() {
   }
 
   currentUserId = session.user.id;
-  currentAuthorName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
-  currentAuthorAvatar = session.user.user_metadata?.avatar_url || 'https://www.gravatar.com/avatar/?d=mp';
+  const profile = await loadAuthorProfile(currentUserId);
+  currentAuthorName = profile.full_name;
+  currentAuthorAvatar = profile.avatar_url;
 
   const urlParams = new URLSearchParams(window.location.search);
   articleIdToEdit = urlParams.get('edit');
@@ -60,6 +82,11 @@ document.getElementById('news-form').addEventListener('submit', async (e) => {
   btn.innerText = editMode ? 'Salvando...' : 'Publicando...';
   status.style.color = '#252525';
   status.innerText = 'Processando dados e imagem...';
+
+  // Garante dados frescos do perfil no momento do salvamento
+  const freshProfile = await loadAuthorProfile(currentUserId);
+  currentAuthorName = freshProfile.full_name;
+  currentAuthorAvatar = freshProfile.avatar_url;
 
   let imageUrl = existingImageUrl;
 
