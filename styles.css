@@ -184,14 +184,17 @@ body {
   min-height: 55vh;
 }
 
+/* Título e Linha Roxa Padronizados */
 .section-banner {
   grid-column: span 12;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   border-bottom: 3px solid var(--color-primary);
+  padding-top: 0;
   padding-bottom: 4px;
-  margin-bottom: 6px;
+  margin-top: 0;
+  margin-bottom: 4px;
 }
 
 .section-banner h2 {
@@ -199,7 +202,8 @@ body {
   color: var(--color-text);
   text-transform: uppercase;
   margin: 0;
-  line-height: 1.1;
+  padding: 0;
+  line-height: 1;
   font-size: 1.35rem;
 }
 
@@ -441,27 +445,22 @@ body {
   background-color: var(--color-primary);
 }
 
-/* Página da Matéria: Coluna Central Grande + Anúncios nas Duas Laterais */
+/* Página da Matéria: Anúncio Esquerdo | Matéria Centralizada | Anúncio Direito */
 .article-page-layout {
   width: 100%;
-  max-width: 1520px;
+  max-width: 1480px;
   margin: 18px auto 45px auto;
   padding: 0 24px;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr) 250px;
+  grid-template-columns: 260px minmax(0, 860px) 260px;
+  justify-content: center;
   gap: 28px;
   align-items: start;
 }
 
-@media (max-width: 1180px) {
-  .article-page-layout {
-    grid-template-columns: 1fr;
-  }
-  .ad-sidebar {
-    position: static !important;
-    width: 100%;
-  }
+.article-page-layout > * {
+  min-width: 0;
 }
 
 .ad-sidebar {
@@ -470,6 +469,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ad-box {
@@ -479,13 +480,14 @@ body {
   padding: 18px;
   text-align: center;
   box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
 }
 
 .ad-label {
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #888;
+  color: #777;
   display: block;
   margin-bottom: 10px;
   font-weight: 700;
@@ -520,11 +522,25 @@ body {
 
 .single-article-container {
   width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
   box-sizing: border-box;
   background: var(--color-white);
   padding: 45px 55px;
   border-radius: 8px;
   box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 1180px) {
+  .article-page-layout {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 860px;
+  }
+
+  .ad-sidebar {
+    position: static;
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
