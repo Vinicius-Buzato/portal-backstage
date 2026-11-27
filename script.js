@@ -9,13 +9,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let allArticles = [];
 
-  editoriaisToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    editoriaisMenu.classList.toggle('open');
-  });
+  if (editoriaisToggle && editoriaisMenu) {
+    editoriaisToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = editoriaisMenu.classList.toggle('open');
+      editoriaisToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
 
   document.addEventListener('click', () => {
-    editoriaisMenu.classList.remove('open');
+    if (editoriaisMenu) {
+      editoriaisMenu.classList.remove('open');
+    }
+    if (editoriaisToggle) {
+      editoriaisToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 
   function setActiveNav(targetBtn) {
@@ -26,16 +34,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function checkEditorSession() {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (session) {
-      editorNavContainer.innerHTML = `<a href="publicar.html" class="nav-link editor-btn">➕ Publicar Matéria</a>`;
-      footerAuthLink.innerHTML = `
-        <a href="publicar.html">Painel de Publicação</a> | 
-        <a href="#" id="logout-btn" style="color: #ff9999;">Sair da Conta</a>
-      `;
-      document.getElementById('logout-btn').addEventListener('click', async (e) => {
-        e.preventDefault();
-        await supabaseClient.auth.signOut();
-        window.location.reload();
-      });
+      if (editorNavContainer) {
+        editorNavContainer.innerHTML = `<a href="publicar.html" class="nav-link editor-btn">➕ Publicar Matéria</a>`;
+      }
+      if (footerAuthLink) {
+        footerAuthLink.innerHTML = `
+          <a href="publicar.html">Painel de Publicação</a> | 
+          <a href="#" id="logout-btn" style="color: #ff9999;">Sair da Conta</a>
+        `;
+        document.getElementById('logout-btn').addEventListener('click', async (e) => {
+          e.preventDefault();
+          await supabaseClient.auth.signOut();
+          window.location.reload();
+        });
+      }
     }
   }
   checkEditorSession();
@@ -48,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
     if (!articles || articles.length === 0) {
-      html += '<p style="grid-column: span 12; text-align: center; font-size: 1.05rem; color: #666;">Nenhuma matéria publicada neste editorial no momento.</p>';
+      html += '<p style="grid-column: span 12; text-align: center; font-size: 1.05rem; color: #666;">Nenhuma matéria publicada nesta editoria no momento.</p>';
       mainContent.innerHTML = html;
       return;
     }
@@ -114,14 +126,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return trimmed.startsWith('@') ? trimmed : `@${trimmed}`;
   }
 
-  async function renderTeamView() {
+  async function renderCreatorsView() {
     mainContent.innerHTML = `
-      <div class="team-header-row">
-        <h2>Equipe Backstage</h2>
-        <span class="team-count-badge" id="team-count-badge">Carregando...</span>
+      <div class="section-banner">
+        <h2>Creators Backstage</h2>
       </div>
-      <div class="team-grid" id="team-grid">
-        <p style="grid-column: 1 / -1; text-align: center;">Carregando equipe...</p>
+      <div class="creators-grid" id="creators-grid">
+        <p style="grid-column: 1 / -1; text-align: center;">Carregando creators...</p>
       </div>
     `;
 
@@ -130,51 +141,44 @@ document.addEventListener("DOMContentLoaded", async () => {
       .select('id, full_name, avatar_url, role, social_handle, updated_at')
       .order('updated_at', { ascending: true });
 
-    const countBadge = document.getElementById('team-count-badge');
-    const teamGrid = document.getElementById('team-grid');
+    const creatorsGrid = document.getElementById('creators-grid');
 
     if (error) {
-      console.error('Erro ao buscar perfis da equipe:', error);
-      if (countBadge) countBadge.textContent = '0 integrantes';
-      if (teamGrid) {
-        teamGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Erro ao carregar os perfis da equipe.</p>';
+      console.error('Erro ao buscar creators:', error);
+      if (creatorsGrid) {
+        creatorsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Erro ao carregar os creators.</p>';
       }
       return;
     }
 
     const members = Array.isArray(profiles) ? profiles : [];
-    const total = members.length;
 
-    if (countBadge) {
-      countBadge.textContent = `${total} ${total === 1 ? 'integrante' : 'integrantes'}`;
-    }
+    if (!creatorsGrid) return;
 
-    if (!teamGrid) return;
-
-    if (total === 0) {
-      teamGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Nenhum integrante cadastrado no momento.</p>';
+    if (members.length === 0) {
+      creatorsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Nenhum creator cadastrado no momento.</p>';
       return;
     }
 
-    teamGrid.innerHTML = members.map((member) => {
-      const name = member.full_name || 'Membro Backstage';
+    creatorsGrid.innerHTML = members.map((member) => {
+      const name = member.full_name || 'Creator Backstage';
       const role = member.role || 'Redação Backstage';
       const photoUrl = resolveProfileAvatarUrl(member.avatar_url);
       const handleText = formatSocialHandle(member.social_handle);
       const socialHtml = handleText
-        ? `<span class="team-social">${handleText}</span>`
+        ? `<span class="creator-social">${handleText}</span>`
         : '';
 
       return `
-        <article class="team-card">
+        <article class="creator-card">
           <img
             src="${photoUrl}"
             alt="${name}"
-            class="team-photo"
+            class="creator-photo"
             onerror="this.onerror=null; this.src='imgs/logo.png';"
           >
-          <h3 class="team-name">${name}</h3>
-          <span class="team-role">${role}</span>
+          <h3 class="creator-name">${name}</h3>
+          <span class="creator-role">${role}</span>
           ${socialHtml}
         </article>
       `;
@@ -232,10 +236,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const initialCategory = params.get('categoria');
     const initialView = params.get('view');
 
-    if (initialView === 'equipe') {
-      const equipeBtn = document.querySelector('.portal-nav .nav-link[data-view="equipe"]');
-      setActiveNav(equipeBtn);
-      renderTeamView();
+    if (initialView === 'creators' || initialView === 'equipe') {
+      const creatorsBtn = document.querySelector('.portal-nav .nav-link[data-view="creators"]');
+      setActiveNav(creatorsBtn);
+      renderCreatorsView();
     } else if (initialView === 'redes') {
       const redesBtn = document.querySelector('.portal-nav .nav-link[data-view="redes"]');
       setActiveNav(redesBtn);
@@ -246,7 +250,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const filtered = allArticles.filter(art =>
         art.category && art.category.trim().toUpperCase() === upperCat
       );
-      renderNewsView(filtered, `Editorial: ${initialCategory}`);
+      renderNewsView(filtered, `Editoria: ${initialCategory}`);
     } else {
       renderNewsView(allArticles, 'Últimas Notícias');
     }
@@ -259,8 +263,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (view === 'noticias') {
         renderNewsView(allArticles, 'Últimas Notícias');
-      } else if (view === 'equipe') {
-        renderTeamView();
+      } else if (view === 'creators') {
+        renderCreatorsView();
       } else if (view === 'redes') {
         renderSocialView();
       }
@@ -272,12 +276,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       e.stopPropagation();
       const selectedCat = item.getAttribute('data-category');
       setActiveNav(editoriaisToggle);
-      editoriaisMenu.classList.remove('open');
+      if (editoriaisMenu) {
+        editoriaisMenu.classList.remove('open');
+      }
 
       const filtered = allArticles.filter(art =>
         art.category && art.category.trim().toUpperCase() === selectedCat
       );
-      renderNewsView(filtered, `Editorial: ${item.textContent}`);
+      renderNewsView(filtered, `Editoria: ${item.textContent}`);
     });
   });
 
