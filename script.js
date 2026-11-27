@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <h3>Instagram</h3>
             <p>Coberturas visuais, bastidores de eventos, galerias e pautas diárias da cultura e da cidade.</p>
           </div>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-btn">Acessar Instagram</a>
+          <a href="https://www.instagram.com/ptbackstage?fqnt=Ym40YzI0djc0N3R3" target="_blank" rel="noopener noreferrer" class="social-btn">Acessar Instagram</a>
         </div>
 
         <div class="social-card">
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <h3>TikTok</h3>
             <p>Vídeos curtos, entrevistas rápidas, tendências culturais e momentos ao vivo direto do front.</p>
           </div>
-          <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="social-btn">Acessar TikTok</a>
+          <a href="https://www.tiktok.com/@portal.backstage?_r=1&_t=ZS-9Bjx6oCb6R7" target="_blank" rel="noopener noreferrer" class="social-btn">Acessar TikTok</a>
         </div>
 
         <div class="social-card">
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <h3>YouTube</h3>
             <p>Reportagens especiais, bastidores em vídeo, especiais de música, cinema e artes visuais.</p>
           </div>
-          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="social-btn">Acessar YouTube</a>
+          <a href="https://youtube.com/@ptagenciabackstage?si=RyQCxYieItmo4YA8" target="_blank" rel="noopener noreferrer" class="social-btn">Acessar YouTube</a>
         </div>
       </div>
     `;
