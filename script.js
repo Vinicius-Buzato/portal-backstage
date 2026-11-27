@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
 
     if (!articles || articles.length === 0) {
-      html += '<p style="grid-column: span 12; text-align: center; font-size: 1.05rem; color: #666;">Nenhuma matéria publicada neste editorial no momento.</p>';
+      html += '<p style="grid-column: span 12; text-align: center; font-size: 1.05rem; color: #666;">Nenhuma matéria publicada nesta editoria no momento.</p>';
       mainContent.innerHTML = html;
       return;
     }
@@ -114,14 +114,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     return trimmed.startsWith('@') ? trimmed : `@${trimmed}`;
   }
 
-  async function renderTeamView() {
+  async function renderCreatorsView() {
     mainContent.innerHTML = `
-      <div class="team-header-row">
-        <h2>Equipe Backstage</h2>
-        <span class="team-count-badge" id="team-count-badge">Carregando...</span>
+      <div class="section-banner">
+        <h2>Creators Backstage</h2>
       </div>
-      <div class="team-grid" id="team-grid">
-        <p style="grid-column: 1 / -1; text-align: center;">Carregando equipe...</p>
+      <div class="team-grid" id="creators-grid">
+        <p style="grid-column: 1 / -1; text-align: center;">Carregando creators...</p>
       </div>
     `;
 
@@ -130,34 +129,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       .select('id, full_name, avatar_url, role, social_handle, updated_at')
       .order('updated_at', { ascending: true });
 
-    const countBadge = document.getElementById('team-count-badge');
-    const teamGrid = document.getElementById('team-grid');
+    const creatorsGrid = document.getElementById('creators-grid');
 
     if (error) {
-      console.error('Erro ao buscar perfis da equipe:', error);
-      if (countBadge) countBadge.textContent = '0 integrantes';
-      if (teamGrid) {
-        teamGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Erro ao carregar os perfis da equipe.</p>';
+      console.error('Erro ao buscar perfis de creators:', error);
+      if (creatorsGrid) {
+        creatorsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red;">Erro ao carregar os creators.</p>';
       }
       return;
     }
 
     const members = Array.isArray(profiles) ? profiles : [];
-    const total = members.length;
 
-    if (countBadge) {
-      countBadge.textContent = `${total} ${total === 1 ? 'integrante' : 'integrantes'}`;
-    }
+    if (!creatorsGrid) return;
 
-    if (!teamGrid) return;
-
-    if (total === 0) {
-      teamGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Nenhum integrante cadastrado no momento.</p>';
+    if (members.length === 0) {
+      creatorsGrid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center;">Nenhum creator cadastrado no momento.</p>';
       return;
     }
 
-    teamGrid.innerHTML = members.map((member) => {
-      const name = member.full_name || 'Membro Backstage';
+    creatorsGrid.innerHTML = members.map((member) => {
+      const name = member.full_name || 'Creator Backstage';
       const role = member.role || 'Redação Backstage';
       const photoUrl = resolveProfileAvatarUrl(member.avatar_url);
       const handleText = formatSocialHandle(member.social_handle);
@@ -232,10 +224,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const initialCategory = params.get('categoria');
     const initialView = params.get('view');
 
-    if (initialView === 'equipe') {
-      const equipeBtn = document.querySelector('.portal-nav .nav-link[data-view="equipe"]');
-      setActiveNav(equipeBtn);
-      renderTeamView();
+    if (initialView === 'creators' || initialView === 'equipe') {
+      const creatorsBtn = document.querySelector('.portal-nav .nav-link[data-view="creators"], .portal-nav .nav-link[data-view="equipe"]');
+      setActiveNav(creatorsBtn);
+      renderCreatorsView();
     } else if (initialView === 'redes') {
       const redesBtn = document.querySelector('.portal-nav .nav-link[data-view="redes"]');
       setActiveNav(redesBtn);
@@ -246,7 +238,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const filtered = allArticles.filter(art =>
         art.category && art.category.trim().toUpperCase() === upperCat
       );
-      renderNewsView(filtered, `Editorial: ${initialCategory}`);
+      renderNewsView(filtered, `Editoria: ${initialCategory}`);
     } else {
       renderNewsView(allArticles, 'Últimas Notícias');
     }
@@ -259,8 +251,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (view === 'noticias') {
         renderNewsView(allArticles, 'Últimas Notícias');
-      } else if (view === 'equipe') {
-        renderTeamView();
+      } else if (view === 'creators' || view === 'equipe') {
+        renderCreatorsView();
       } else if (view === 'redes') {
         renderSocialView();
       }
@@ -277,7 +269,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const filtered = allArticles.filter(art =>
         art.category && art.category.trim().toUpperCase() === selectedCat
       );
-      renderNewsView(filtered, `Editorial: ${item.textContent}`);
+      renderNewsView(filtered, `Editoria: ${item.textContent}`);
     });
   });
 
