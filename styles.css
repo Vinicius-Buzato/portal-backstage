@@ -122,12 +122,13 @@ body {
   gap: 6px;
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
   background-color: var(--color-text);
   color: var(--color-white);
 }
 
-/* Dropdown Expansivo de Editoriais */
+/* Dropdown Expansivo de Editorias */
 .dropdown-wrapper {
   position: relative;
 }
@@ -152,8 +153,14 @@ body {
 }
 
 @keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-item {
@@ -193,6 +200,7 @@ body {
   row-gap: 16px;
   align-content: start;
 }
+
 /* Título e Linha Roxa Padronizados */
 .section-banner {
   grid-column: span 12;
@@ -239,7 +247,9 @@ body {
 .article-card.span-4 { grid-column: span 4; }
 
 @media (max-width: 850px) {
-  .article-card.span-8, .article-card.span-6, .article-card.span-4 {
+  .article-card.span-8,
+  .article-card.span-6,
+  .article-card.span-4 {
     grid-column: span 12;
   }
 }
@@ -325,43 +335,8 @@ body {
   transform: translateX(4px);
 }
 
-.team-header-row {
-  grid-column: span 12;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 12px;
-  border-bottom: 3px solid var(--color-primary);
-  padding-bottom: 6px;
-  margin-bottom: 4px;
-}
-
-.team-header-row h2 {
-  font-family: var(--font-title);
-  color: var(--color-text);
-  text-transform: uppercase;
-  margin: 0;
-  padding: 0;
-  line-height: 1.05;
-  font-size: 1.35rem;
-}
-
-.team-count-badge {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  background-color: var(--color-white);
-  border: 1.5px solid var(--color-primary);
-  border-radius: 999px;
-  padding: 3px 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-/* Seção Equipe */
+/* Seção Creators */
+.creators-grid,
 .team-grid,
 .social-grid {
   grid-column: span 12;
@@ -370,19 +345,18 @@ body {
   margin-top: 4px;
 }
 
+.creators-grid,
 .team-grid {
-  grid-column: span 12;
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  margin-top: 4px;
   align-items: stretch;
 }
 
 .social-grid {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 8px;
 }
 
+.creator-card,
 .team-card {
   background-color: var(--color-white);
   border-radius: 8px;
@@ -395,39 +369,36 @@ body {
   text-align: center;
   min-width: 0;
   box-sizing: border-box;
+  transition: var(--transition-smooth);
 }
 
+.creator-card:hover,
 .team-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
 }
 
-.team-photo {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  object-fit: cover;
-  filter: grayscale(100%);
-  border: 3px solid var(--color-text);
-  margin-bottom: 15px;
-  transition: var(--transition-smooth);
-}
-
-.team-card:hover .team-photo {
-  border-color: var(--color-primary);
-}
-
+.creator-photo,
+.team-photo,
 .team-avatar {
   width: 112px;
   height: 112px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--color-primary);
   filter: grayscale(100%) contrast(1.08);
+  border: 3px solid var(--color-text);
   margin-bottom: 16px;
   background-color: var(--color-light);
+  transition: var(--transition-smooth);
 }
 
+.creator-card:hover .creator-photo,
+.team-card:hover .team-photo,
+.team-card:hover .team-avatar {
+  border-color: var(--color-primary);
+}
+
+.creator-name,
 .team-name {
   font-family: var(--font-title);
   font-size: 1.15rem;
@@ -436,6 +407,7 @@ body {
   line-height: 1.2;
 }
 
+.creator-role,
 .team-role {
   font-size: 0.85rem;
   font-weight: 700;
@@ -445,18 +417,10 @@ body {
   margin: 0 0 12px 0;
 }
 
-.team-handle {
-  margin-top: auto;
-  display: inline-block;
-  background-color: var(--color-light);
-  color: var(--color-text);
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 999px;
-}
-
+.creator-social,
+.team-handle,
 .team-social {
+  margin-top: auto;
   display: inline-block;
   padding: 6px 14px;
   background-color: var(--color-bg);
@@ -468,20 +432,13 @@ body {
   transition: var(--transition-smooth);
 }
 
+.creator-social:hover,
 .team-social:hover {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
 
 /* Seção Redes Sociais */
-.social-grid {
-  grid-column: span 12;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 8px;
-}
-
 .social-card {
   background: var(--color-white);
   border-radius: 10px;
@@ -773,7 +730,8 @@ body {
   padding: 20px;
 }
 
-.form-container, .login-box {
+.form-container,
+.login-box {
   width: 100%;
   max-width: 700px;
   margin: 35px auto;
@@ -804,7 +762,9 @@ label {
   font-size: 0.9rem;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid var(--color-light);
